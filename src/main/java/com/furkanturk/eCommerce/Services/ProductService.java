@@ -17,7 +17,6 @@ public class ProductService {
     private ProductRepository productRepository;
 
 
-
     public Product createProduct(Product product){
         Optional<Product> existingProduct = productRepository.findByName(product.getName());
 
@@ -35,7 +34,11 @@ public class ProductService {
     }
 
     public Optional<Product> getProductById(Long id){
-        return productRepository.findById(id);
+        Optional<Product> product=productRepository.findById(id);
+        if(product.isEmpty()){
+            throw new RuntimeException("Product Not Found!");
+        }
+        return product;
     }
 
     public List<Product> getAllProduct(){

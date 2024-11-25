@@ -39,7 +39,7 @@ public class ProductController {
     public ResponseEntity<List<Product>> getAllProduct(){
         List<Product> products=productService.getAllProduct();
         if(products==null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).header("Ürün bulunamadı").build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).header("Ürünler bulunamadı").build();
         }
         return ResponseEntity.ok(products);
     }

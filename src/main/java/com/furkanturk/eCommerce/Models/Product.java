@@ -27,8 +27,4 @@ public class Product {
     @JoinColumn(name="supplier_id",nullable = false)
     private Supplier supplier;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
-
 }
