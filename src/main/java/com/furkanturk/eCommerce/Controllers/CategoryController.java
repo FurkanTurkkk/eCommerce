@@ -23,7 +23,8 @@ public class CategoryController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).header("Liste Bulunamadı!").build();
         }
         else {
-            return ResponseEntity.ok().header("Liste Başarıyla Getirildi...").build();
+            List<Category> categories=categoryService.getAllCategories();
+            return ResponseEntity.ok(categories);
         }
     }
 
@@ -36,17 +37,28 @@ public class CategoryController {
                     .build();
         }
         else {
-            return ResponseEntity.ok(category.get());
+            return ResponseEntity.ok().header("Kategori Getirildi").build();
         }
     }
 
     @PostMapping
     public ResponseEntity<Category> createCategory(@RequestBody Category category){
-        return ResponseEntity.ok(categoryService.createCategory(category));
+        List<Category> category1=categoryService.getAllCategories();
+        if(category1.contains(category)){
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .header("Kategori Mevcut Eklenemedi.")
+                    .build();
+        }else{
+            categoryService.createCategory(category);
+            return ResponseEntity.ok().build();
+        }
+
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCategoryById(@PathVariable Long id){
-        return ResponseEntity.ok().build();
+        categoryService.deleteCategoryById(id);
+        return ResponseEntity.noContent().build();
     }
 }

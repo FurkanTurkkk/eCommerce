@@ -20,7 +20,15 @@ public class Product {
     private Integer stock;
 
     @ManyToOne
-    @JoinColumn(name="category",nullable = false)
+    @JoinColumn(name="category_id",nullable = false)
     private Category category;
+
+    @ManyToOne
+    @JoinColumn(name="supplier_id",nullable = false)
+    private Supplier supplier;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
 }

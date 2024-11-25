@@ -1,8 +1,11 @@
 package com.furkanturk.eCommerce.Controllers;
 
+import com.furkanturk.eCommerce.Models.Category;
 import com.furkanturk.eCommerce.Models.Product;
 import com.furkanturk.eCommerce.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,7 +39,7 @@ public class ProductController {
     public ResponseEntity<List<Product>> getAllProduct(){
         List<Product> products=productService.getAllProduct();
         if(products==null){
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).header("Ürün bulunamadı").build();
         }
         return ResponseEntity.ok(products);
     }
@@ -51,6 +54,20 @@ public class ProductController {
         else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/by-category")
+    public ResponseEntity<List<Product>> getProductsByCategory(@RequestParam Long categoryId){
+        Optional<List<Product>> products=productService.getProductsByCategory(categoryId);
+
+        if(products.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        else {
+            ResponseEntity.ok().body(products);
+            return ResponseEntity.ok().build();
+        }
+
     }
 
 }
