@@ -18,8 +18,11 @@ public class Order {
     @Column(nullable = false)
     private LocalDate orderDate;
 
-    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<OrderItem> orderItems;
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
+    private List<OrderProduct> orderProducts;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id",nullable = false)
+    private Customer customer;
 
 }

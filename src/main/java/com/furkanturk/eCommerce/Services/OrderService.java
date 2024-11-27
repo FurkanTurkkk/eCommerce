@@ -1,7 +1,7 @@
 package com.furkanturk.eCommerce.Services;
 
 import com.furkanturk.eCommerce.Models.Order;
-import com.furkanturk.eCommerce.Models.OrderItem;
+import com.furkanturk.eCommerce.Models.OrderProduct;
 import com.furkanturk.eCommerce.Models.Product;
 import com.furkanturk.eCommerce.Repositories.OrderItemRepository;
 import com.furkanturk.eCommerce.Repositories.OrderRepository;
@@ -24,12 +24,12 @@ public class OrderService  {
     @Autowired
     private OrderItemRepository orderItemRepository;
 
-    public Order createOrder(List<OrderItem> items){
+    public Order createOrder(List<OrderProduct> items){
         Order order=new Order();
         order.setOrderDate(LocalDate.now());
         orderRepository.save(order);
 
-        for(OrderItem item:items){
+        for(OrderProduct item:items){
             Product product=productRepository.findById(item.getProduct().getId())
                     .orElseThrow(()->new RuntimeException("Product not found"));
 

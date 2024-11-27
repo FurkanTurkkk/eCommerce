@@ -19,6 +19,8 @@ public class Product {
 
     private Integer stock;
 
+
+
     @ManyToOne
     @JoinColumn(name="category_id",nullable = false)
     private Category category;

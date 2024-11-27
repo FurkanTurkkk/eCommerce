@@ -1,9 +1,10 @@
 package com.furkanturk.eCommerce.Controllers;
 
 import com.furkanturk.eCommerce.Models.Order;
-import com.furkanturk.eCommerce.Models.OrderItem;
+import com.furkanturk.eCommerce.Models.OrderProduct;
 import com.furkanturk.eCommerce.Services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,12 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping
-    public Order createOrder(@RequestBody List<OrderItem> items) {
-        return orderService.createOrder(items);
+    public ResponseEntity<Order> createOrder(@RequestBody List<OrderProduct> items) {
+        try{
+            Order createOrder=orderService.createOrder(items);
+            return ResponseEntity.ok(createOrder);
+        }catch (RuntimeException e){
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 }

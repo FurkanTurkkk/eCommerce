@@ -3,10 +3,12 @@ package com.furkanturk.eCommerce.Models;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "order_items")
-public class OrderItem {
+public class OrderProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +24,5 @@ public class OrderItem {
 
     @Column(nullable = false)
     private int quantity;
+    private double unitPrice;
 }
